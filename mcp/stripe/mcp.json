@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Stripe",
+  "description": "Customers, payments, subscriptions and Stripe documentation search.",
+  "homepage": "https://docs.stripe.com/mcp",
+  "kind": "http",
+  "url": "https://mcp.stripe.com",
+  "oauth": true
+}

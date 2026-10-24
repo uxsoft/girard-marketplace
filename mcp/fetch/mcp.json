@@ -1,0 +1,11 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Fetch",
+  "description": "Fetch web pages and hand them to the agent as Markdown.",
+  "homepage": "https://github.com/modelcontextprotocol/servers/tree/main/src/fetch",
+  "kind": "stdio",
+  "command": "uvx",
+  "args": [
+    "mcp-server-fetch"
+  ]
+}

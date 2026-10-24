@@ -1,0 +1,12 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Playwright",
+  "description": "Drive a real browser: open pages, click, fill in forms and read page snapshots.",
+  "homepage": "https://github.com/microsoft/playwright-mcp",
+  "kind": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@playwright/mcp@latest"
+  ]
+}

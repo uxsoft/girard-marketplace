@@ -1,0 +1,21 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "SQLite",
+  "description": "Query and change a local SQLite database file.",
+  "homepage": "https://github.com/modelcontextprotocol/servers-archived/tree/main/src/sqlite",
+  "kind": "stdio",
+  "command": "uvx",
+  "args": [
+    "mcp-server-sqlite",
+    "--db-path",
+    "{db_path}"
+  ],
+  "inputs": [
+    {
+      "id": "db_path",
+      "label": "Database file",
+      "placeholder": "/home/me/data/app.db",
+      "description": "The full path of the .db file. It is created if it doesn't exist."
+    }
+  ]
+}

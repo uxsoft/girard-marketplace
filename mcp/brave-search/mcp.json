@@ -1,0 +1,20 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Brave Search",
+  "description": "Web, news, image and local search with the Brave Search API.",
+  "homepage": "https://github.com/brave/brave-search-mcp-server",
+  "kind": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@brave/brave-search-mcp-server"
+  ],
+  "secrets": [
+    {
+      "name": "BRAVE_API_KEY",
+      "label": "API key",
+      "description": "A Brave Search API key. The free plan is enough to start.",
+      "link": "https://api-dashboard.search.brave.com/app/keys"
+    }
+  ]
+}

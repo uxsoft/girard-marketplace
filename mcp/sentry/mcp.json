@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Sentry",
+  "description": "Errors, issues, traces and releases from Sentry.",
+  "homepage": "https://mcp.sentry.dev/",
+  "kind": "http",
+  "url": "https://mcp.sentry.dev/mcp",
+  "oauth": true
+}

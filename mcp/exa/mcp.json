@@ -1,0 +1,17 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Exa",
+  "description": "Web search, code search and page contents from Exa's search engine.",
+  "homepage": "https://docs.exa.ai/reference/exa-mcp",
+  "kind": "http",
+  "url": "https://mcp.exa.ai/mcp",
+  "secrets": [
+    {
+      "name": "x-api-key",
+      "label": "API key",
+      "description": "Optional. Without a key, Exa's free limits apply.",
+      "link": "https://dashboard.exa.ai/api-keys",
+      "optional": true
+    }
+  ]
+}

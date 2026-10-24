@@ -1,0 +1,19 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Postgres",
+  "description": "Query a PostgreSQL database, explain query plans and check its health (read-only).",
+  "homepage": "https://github.com/crystaldba/postgres-mcp",
+  "kind": "stdio",
+  "command": "uvx",
+  "args": [
+    "postgres-mcp",
+    "--access-mode=restricted"
+  ],
+  "secrets": [
+    {
+      "name": "DATABASE_URI",
+      "label": "Connection URI",
+      "description": "postgresql://user:password@host:5432/dbname. Kept in the keychain since it holds the password."
+    }
+  ]
+}

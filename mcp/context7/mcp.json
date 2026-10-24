@@ -1,0 +1,18 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Context7",
+  "description": "Up-to-date documentation and code examples for libraries and frameworks.",
+  "homepage": "https://github.com/upstash/context7",
+  "kind": "http",
+  "url": "https://mcp.context7.com/mcp",
+  "secrets": [
+    {
+      "name": "Authorization",
+      "label": "API key",
+      "description": "Optional. A free key from the Context7 dashboard raises the rate limits.",
+      "link": "https://context7.com/dashboard",
+      "prefix": "Bearer ",
+      "optional": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "GitHub",
+  "description": "Repositories, issues, pull requests, Actions and code search on GitHub.",
+  "homepage": "https://github.com/github/github-mcp-server",
+  "kind": "http",
+  "url": "https://api.githubcopilot.com/mcp/",
+  "secrets": [
+    {
+      "name": "Authorization",
+      "label": "Personal access token",
+      "description": "A fine-grained or classic GitHub token, sent as a Bearer token. Give it only the repositories and scopes the agents need.",
+      "link": "https://github.com/settings/personal-access-tokens/new",
+      "prefix": "Bearer "
+    }
+  ]
+}

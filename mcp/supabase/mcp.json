@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Supabase",
+  "description": "Manage Supabase projects: tables, SQL, migrations, edge functions and logs.",
+  "homepage": "https://supabase.com/docs/guides/getting-started/mcp",
+  "kind": "http",
+  "url": "https://mcp.supabase.com/mcp",
+  "oauth": true
+}

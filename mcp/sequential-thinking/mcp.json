@@ -1,0 +1,12 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Sequential Thinking",
+  "description": "A tool for step-by-step problem solving that lets the agent revise and branch its reasoning.",
+  "homepage": "https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking",
+  "kind": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "@modelcontextprotocol/server-sequential-thinking"
+  ]
+}

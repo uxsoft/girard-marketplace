@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Figma",
+  "description": "Design context, variables, components and screenshots from Figma files.",
+  "homepage": "https://help.figma.com/hc/en-us/articles/32132100833559",
+  "kind": "http",
+  "url": "https://mcp.figma.com/mcp",
+  "oauth": true,
+  "oauth_client_name": "Claude Code"
+}

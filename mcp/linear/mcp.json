@@ -1,0 +1,9 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Linear",
+  "description": "Find, create and update Linear issues, projects and comments.",
+  "homepage": "https://linear.app/docs/mcp",
+  "kind": "http",
+  "url": "https://mcp.linear.app/mcp",
+  "oauth": true
+}
