@@ -1,11 +1,11 @@
-# Wisp Marketplace
+# Girard Marketplace
 
-Ready-made [MCP](https://modelcontextprotocol.io) server setups for [Wisp](https://github.com/uxsoft/wisp).
-Wisp's **Settings → Marketplace** tab lists every server here. Click **Add**, fill in any keys it
+Ready-made [MCP](https://modelcontextprotocol.io) server setups for [Girard](https://github.com/uxsoft/girard).
+Girard's **Settings → Marketplace** tab lists every server here. Click **Add**, fill in any keys it
 asks for, and the server is given to Claude Code, Codex and Copilot CLI in your next session.
 
-Wisp keeps a shallow clone of this repository in `~/.wisp/marketplace` and updates it when you
-open the tab, so a server merged here shows up without a Wisp release.
+Girard keeps a shallow clone of this repository in `~/.girard/marketplace` and updates it when you
+open the tab, so a server merged here shows up without a Girard release.
 
 ## Servers
 
@@ -30,12 +30,12 @@ open the tab, so a server merged here shows up without a Wisp release.
 
 ## Adding a server
 
-Each server is a folder under `mcp/`. The folder name is the server's id in Wisp, made of lowercase
+Each server is a folder under `mcp/`. The folder name is the server's id in Girard, made of lowercase
 letters, digits and `-`.
 
 ```
 mcp/<id>/
-  mcp.json    how Wisp starts or reaches the server
+  mcp.json    how Girard starts or reaches the server
   icon.svg    a square icon, under 256 KiB, without scripts or embedded images
   README.md   what it does, what it needs, where to get keys
 ```
@@ -68,9 +68,9 @@ mcp/<id>/
 | `homepage` | The card's **Docs** link. |
 | `kind` | `stdio` runs `command` with `args` on the user's computer; `http` talks to `url` (streamable HTTP). |
 | `oauth` | `http` only: the user signs in in the browser after adding it. |
-| `oauth_client_name` | `http` only: the client name Wisp registers under, for servers that only accept known clients. |
+| `oauth_client_name` | `http` only: the client name Girard registers under, for servers that only accept known clients. |
 | `inputs` | Plain values asked for when adding, each `{id, label, description?, placeholder?}`. `{id}` in `args` or `url` is replaced with the value. |
-| `secrets` | Env vars (`stdio`) or headers (`http`), each `{name, label, description?, link?, prefix?, optional?}`. Wisp stores them in the system keychain. `prefix` goes before what the user types, e.g. `"Bearer "`. An `optional` secret left empty is left out. |
+| `secrets` | Env vars (`stdio`) or headers (`http`), each `{name, label, description?, link?, prefix?, optional?}`. Girard stores them in the system keychain. `prefix` goes before what the user types, e.g. `"Bearer "`. An `optional` secret left empty is left out. |
 
 Check your entry with `python3 scripts/validate.py` before opening a pull request; CI runs it too.
 
