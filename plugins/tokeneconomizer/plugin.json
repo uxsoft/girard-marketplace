@@ -1,0 +1,16 @@
+{
+  "$schema": "../../schema/plugin.schema.json",
+  "name": "TokenEconomizer",
+  "description": "Cuts agent cost in repositories you work in often: learned repository facts, pruning of unused tools and a guard against failing loops.",
+  "homepage": "https://github.com/microsoft/TokenEconomizer",
+  "source": "microsoft/TokenEconomizer",
+  "marketplace": "tokeneconomizer",
+  "plugin": "tokeneconomizer",
+  "harnesses": ["claude-code", "codex", "copilot-cli"],
+  "requires": ["python3"],
+  "notes": {
+    "claude-code": "Run /tokeneconomizer:toolprune refresh-catalog once, and again after Claude Code updates.",
+    "codex": "Approve its hooks; they run from your next session.",
+    "copilot-cli": "Run /tokeneconomizer:toolprune refresh-catalog once, and again after Copilot CLI updates."
+  }
+}

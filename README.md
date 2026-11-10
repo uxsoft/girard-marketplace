@@ -1,11 +1,13 @@
 # Girard Marketplace
 
-Ready-made [MCP](https://modelcontextprotocol.io) server setups for [Girard](https://github.com/uxsoft/girard).
-Girard's **Settings → Marketplace** tab lists every server here. Click **Add**, fill in any keys it
-asks for, and the server is given to Claude Code, Codex and Copilot CLI in your next session.
+Ready-made [MCP](https://modelcontextprotocol.io) server setups and agent CLI plugins for
+[Girard](https://github.com/uxsoft/girard). Girard's **Settings → Marketplace** tab lists every
+entry here, under **Servers** and **Plugins**. Click **Add**, fill in any keys a server asks for,
+and the server is given to Claude Code, Codex and Copilot CLI in your next session. A plugin is
+installed with each CLI's own plugin manager.
 
 Girard keeps a shallow clone of this repository in `~/.girard/marketplace` and updates it when you
-open the tab, so a server merged here shows up without a Girard release.
+open the tab, so an entry merged here shows up without a Girard release.
 
 ## Servers
 
@@ -27,6 +29,12 @@ open the tab, so a server merged here shows up without a Girard release.
 | <img src="mcp/sqlite/icon.svg" width="20"> | [SQLite](mcp/sqlite) | Local | uv, database path |
 | <img src="mcp/supabase/icon.svg" width="20"> | [Supabase](mcp/supabase) | Remote | OAuth sign-in |
 | <img src="mcp/stripe/icon.svg" width="20"> | [Stripe](mcp/stripe) | Remote | OAuth sign-in |
+
+## Plugins
+
+| | Plugin | For | Needs |
+|---|---|---|---|
+| <img src="plugins/tokeneconomizer/icon.svg" width="20"> | [TokenEconomizer](plugins/tokeneconomizer) | Claude Code, Codex, Copilot CLI | Python 3.10+ |
 
 ## Adding a server
 
@@ -71,6 +79,52 @@ mcp/<id>/
 | `oauth_client_name` | `http` only: the client name Girard registers under, for servers that only accept known clients. |
 | `inputs` | Plain values asked for when adding, each `{id, label, description?, placeholder?}`. `{id}` in `args` or `url` is replaced with the value. |
 | `secrets` | Env vars (`stdio`) or headers (`http`), each `{name, label, description?, link?, prefix?, optional?}`. Girard stores them in the system keychain. `prefix` goes before what the user types, e.g. `"Bearer "`. An `optional` secret left empty is left out. |
+
+## Adding a plugin
+
+A plugin is one that Claude Code, Codex or Copilot CLI installs itself, from a plugin marketplace
+(`.claude-plugin/marketplace.json`) in a Git repository. Girard runs each CLI's
+`plugin marketplace add <source>` and `plugin install <plugin>@<marketplace>`, so the plugin is
+installed for that CLI globally, also outside Girard. Each plugin is a folder under `plugins/`,
+named like a server's:
+
+```
+plugins/<id>/
+  plugin.json  where Girard installs it from, and for which CLIs
+  icon.svg     as for servers
+  README.md    what it does, what it needs, anything to do after installing
+```
+
+`plugin.json` follows [`schema/plugin.schema.json`](schema/plugin.schema.json):
+
+```json
+{
+  "$schema": "../../schema/plugin.schema.json",
+  "name": "TokenEconomizer",
+  "description": "Cuts agent cost in repositories you work in often.",
+  "homepage": "https://github.com/microsoft/TokenEconomizer",
+  "source": "microsoft/TokenEconomizer",
+  "harnesses": ["claude-code", "codex", "copilot-cli"],
+  "requires": ["python3"],
+  "notes": { "codex": "Approve its hooks; they run from your next session." }
+}
+```
+
+| Field | |
+|---|---|
+| `name`, `description` | Shown on the card. Keep the description to one sentence. |
+| `homepage` | The card's **Docs** link. |
+| `source` | The marketplace: a GitHub `owner/repo` or an `https://` Git URL. Its default branch is installed, and **Update** follows it. |
+| `marketplace` | The marketplace's `name` in the source's `marketplace.json`. Defaults to the folder name. |
+| `plugin` | The plugin's name in that marketplace. Defaults to the folder name. |
+| `harnesses` | The CLIs it supports: `claude-code`, `codex`, `copilot-cli`. |
+| `requires` | Commands it needs on `PATH`, such as `python3`. Girard warns when one is missing. |
+| `notes` | Per CLI, a sentence or two shown after installing, for steps the user has to take. |
+
+Plugins run code on the user's computer, in hooks the CLIs start. Link the source in the README and
+say what its hooks do.
+
+## Checking an entry
 
 Check your entry with `python3 scripts/validate.py` before opening a pull request; CI runs it too.
 
