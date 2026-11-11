@@ -1,0 +1,13 @@
+{
+  "$schema": "../../schema/mcp.schema.json",
+  "name": "Work IQ",
+  "description": "Microsoft 365 mail, calendar, Teams, files, SharePoint and people, to read and act on.",
+  "homepage": "https://github.com/microsoft/work-iq-mcp",
+  "kind": "http",
+  "url": "https://workiq.svc.cloud.microsoft/mcp",
+  "oauth": true,
+  "oauth_client": {
+    "client_id": "ba081686-5d24-4bc6-a0d6-d034ecffed87",
+    "redirect_port": 12798
+  }
+}

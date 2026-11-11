@@ -13,7 +13,7 @@ ID = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 INPUT_ID = re.compile(r"^[a-z][a-z0-9_]*$")
 PLACEHOLDER = re.compile(r"\{([^{}]*)\}")
 KNOWN = {"$schema", "name", "description", "homepage", "kind", "command", "args", "url",
-         "oauth", "oauth_client_name", "inputs", "secrets"}
+         "oauth", "oauth_client_name", "oauth_client", "inputs", "secrets"}
 MAX_ICON = 256 * 1024
 
 
@@ -46,7 +46,7 @@ def check(folder: Path) -> list[str]:
     if kind == "stdio":
         if not isinstance(entry.get("command"), str) or not entry["command"].strip():
             errors.append("a stdio server needs a 'command'")
-        for key in ("url", "oauth", "oauth_client_name"):
+        for key in ("url", "oauth", "oauth_client_name", "oauth_client"):
             if entry.get(key):
                 errors.append(f"{key!r} is for http servers only")
     if kind == "http":
@@ -57,8 +57,23 @@ def check(folder: Path) -> list[str]:
             errors.append("'command' and 'args' are for stdio servers only")
     if "oauth" in entry and not isinstance(entry["oauth"], bool):
         errors.append("'oauth' must be true or false")
-    if entry.get("oauth_client_name") is not None and not entry.get("oauth"):
-        errors.append("'oauth_client_name' needs 'oauth': true")
+    for key in ("oauth_client_name", "oauth_client"):
+        if entry.get(key) is not None and not entry.get("oauth"):
+            errors.append(f"{key!r} needs 'oauth': true")
+    client = entry.get("oauth_client")
+    if client is not None:
+        if not isinstance(client, dict):
+            errors.append("'oauth_client' must be an object")
+        else:
+            for key in client.keys() - {"client_id", "redirect_port"}:
+                errors.append(f"unknown field {key!r} in 'oauth_client'")
+            if not isinstance(client.get("client_id"), str) or not client["client_id"].strip():
+                errors.append("'oauth_client' needs a 'client_id'")
+            port = client.get("redirect_port")
+            if port is not None and (type(port) is not int or not 1 <= port <= 65535):
+                errors.append("'redirect_port' must be a port number from 1 to 65535")
+        if entry.get("oauth_client_name"):
+            errors.append("'oauth_client_name' is only for registering; leave it out with 'oauth_client'")
 
     inputs = entry.get("inputs", [])
     input_ids = set()
