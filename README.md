@@ -70,8 +70,7 @@ mcp/<id>/
 | `kind` | `stdio` runs `command` with `args` on the user's computer; `http` talks to `url` (streamable HTTP). |
 | `oauth` | `http` only: the user signs in in the browser after adding it. |
 | `oauth_client_name` | `http` only: the client name Girard registers under, for servers that only accept known clients. |
-| `oauth_client_id` | `http` only: a client already registered with the authorization server, which Girard signs in as instead of registering, for servers that don't let apps register themselves (Microsoft Entra ID). |
-| `oauth_redirect_uri` | `http` only: the loopback redirect that `oauth_client_id` is registered with, e.g. `http://localhost:12798/`. Left out, Girard uses a free port. |
+| `oauth_client` | `http` only: `{client_id, redirect_port?}`, a client already registered with the authorization server, which Girard signs in as instead of registering, for servers that don't let apps register themselves (Microsoft Entra ID). Its redirect is `http://localhost:<redirect_port>/`; without a port, any free one. |
 | `inputs` | Plain values asked for when adding, each `{id, label, description?, placeholder?}`. `{id}` in `args` or `url` is replaced with the value. |
 | `secrets` | Env vars (`stdio`) or headers (`http`), each `{name, label, description?, link?, prefix?, optional?}`. Girard stores them in the system keychain. `prefix` goes before what the user types, e.g. `"Bearer "`. An `optional` secret left empty is left out. |
 

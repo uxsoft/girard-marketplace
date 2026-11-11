@@ -15,7 +15,7 @@ agents ask before each tool call unless you mark the server trusted in Girard.
   [Tenant Administrator Enablement Guide](https://github.com/microsoft/work-iq-mcp/blob/main/ADMIN-INSTRUCTIONS.md),
   which starts with the one-click consent URL
   `https://login.microsoftonline.com/<tenant>/adminconsent?client_id=ba081686-5d24-4bc6-a0d6-d034ecffed87`.
-- A Girard version that signs in with pre-registered OAuth clients (`oauth_client_id`). Older
+- A Girard version that signs in with pre-registered OAuth clients (`oauth_client`). Older
   versions report that the server doesn't let apps register themselves.
 
 ## Notes

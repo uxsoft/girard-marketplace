@@ -6,6 +6,8 @@
   "kind": "http",
   "url": "https://workiq.svc.cloud.microsoft/mcp",
   "oauth": true,
-  "oauth_client_id": "ba081686-5d24-4bc6-a0d6-d034ecffed87",
-  "oauth_redirect_uri": "http://localhost:12798/"
+  "oauth_client": {
+    "client_id": "ba081686-5d24-4bc6-a0d6-d034ecffed87",
+    "redirect_port": 12798
+  }
 }

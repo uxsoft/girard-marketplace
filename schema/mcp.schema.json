@@ -27,15 +27,20 @@
       "type": ["string", "null"],
       "description": "The client name Wisp registers under when signing in, for servers that only allow known clients."
     },
-    "oauth_client_id": {
-      "type": "string",
-      "minLength": 1,
-      "description": "A client already registered with the authorization server, signed in as instead of registering (http + oauth only), for servers that don't let apps register themselves, such as Microsoft Entra ID."
-    },
-    "oauth_redirect_uri": {
-      "type": "string",
-      "pattern": "^http://(localhost|127\\.0\\.0\\.1):[0-9]+(/[A-Za-z0-9/._~-]*)?$",
-      "description": "The loopback redirect that oauth_client_id is registered with, e.g. http://localhost:12798/ (http + oauth only)."
+    "oauth_client": {
+      "type": "object",
+      "required": ["client_id"],
+      "additionalProperties": false,
+      "description": "A client already registered with the authorization server, signed in as instead of registering (http + oauth only), for servers that don't let apps register themselves, such as Microsoft Entra ID.",
+      "properties": {
+        "client_id": { "type": "string", "minLength": 1 },
+        "redirect_port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The loopback port its redirect, http://localhost:<port>/, is registered on. Left out, any free port."
+        }
+      }
     },
     "inputs": {
       "type": "array",
