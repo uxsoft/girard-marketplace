@@ -27,6 +27,7 @@ open the tab, so a server merged here shows up without a Girard release.
 | <img src="mcp/sqlite/icon.svg" width="20"> | [SQLite](mcp/sqlite) | Local | uv, database path |
 | <img src="mcp/supabase/icon.svg" width="20"> | [Supabase](mcp/supabase) | Remote | OAuth sign-in |
 | <img src="mcp/stripe/icon.svg" width="20"> | [Stripe](mcp/stripe) | Remote | OAuth sign-in |
+| <img src="mcp/workiq/icon.svg" width="20"> | [Work IQ](mcp/workiq) | Remote | Microsoft 365 sign-in, tenant consent |
 
 ## Adding a server
 
@@ -69,6 +70,8 @@ mcp/<id>/
 | `kind` | `stdio` runs `command` with `args` on the user's computer; `http` talks to `url` (streamable HTTP). |
 | `oauth` | `http` only: the user signs in in the browser after adding it. |
 | `oauth_client_name` | `http` only: the client name Girard registers under, for servers that only accept known clients. |
+| `oauth_client_id` | `http` only: a client already registered with the authorization server, which Girard signs in as instead of registering, for servers that don't let apps register themselves (Microsoft Entra ID). |
+| `oauth_redirect_uri` | `http` only: the loopback redirect that `oauth_client_id` is registered with, e.g. `http://localhost:12798/`. Left out, Girard uses a free port. |
 | `inputs` | Plain values asked for when adding, each `{id, label, description?, placeholder?}`. `{id}` in `args` or `url` is replaced with the value. |
 | `secrets` | Env vars (`stdio`) or headers (`http`), each `{name, label, description?, link?, prefix?, optional?}`. Girard stores them in the system keychain. `prefix` goes before what the user types, e.g. `"Bearer "`. An `optional` secret left empty is left out. |
 

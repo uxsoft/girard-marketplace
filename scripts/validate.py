@@ -13,7 +13,9 @@ ID = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 INPUT_ID = re.compile(r"^[a-z][a-z0-9_]*$")
 PLACEHOLDER = re.compile(r"\{([^{}]*)\}")
 KNOWN = {"$schema", "name", "description", "homepage", "kind", "command", "args", "url",
-         "oauth", "oauth_client_name", "inputs", "secrets"}
+         "oauth", "oauth_client_name", "oauth_client_id", "oauth_redirect_uri", "inputs",
+         "secrets"}
+REDIRECT = re.compile(r"^http://(localhost|127\.0\.0\.1):([0-9]+)(/[A-Za-z0-9/._~-]*)?$")
 MAX_ICON = 256 * 1024
 
 
@@ -46,7 +48,7 @@ def check(folder: Path) -> list[str]:
     if kind == "stdio":
         if not isinstance(entry.get("command"), str) or not entry["command"].strip():
             errors.append("a stdio server needs a 'command'")
-        for key in ("url", "oauth", "oauth_client_name"):
+        for key in ("url", "oauth", "oauth_client_name", "oauth_client_id", "oauth_redirect_uri"):
             if entry.get(key):
                 errors.append(f"{key!r} is for http servers only")
     if kind == "http":
@@ -57,8 +59,18 @@ def check(folder: Path) -> list[str]:
             errors.append("'command' and 'args' are for stdio servers only")
     if "oauth" in entry and not isinstance(entry["oauth"], bool):
         errors.append("'oauth' must be true or false")
-    if entry.get("oauth_client_name") is not None and not entry.get("oauth"):
-        errors.append("'oauth_client_name' needs 'oauth': true")
+    for key in ("oauth_client_name", "oauth_client_id", "oauth_redirect_uri"):
+        if entry.get(key) is not None and not entry.get("oauth"):
+            errors.append(f"{key!r} needs 'oauth': true")
+    client_id = entry.get("oauth_client_id")
+    if client_id is not None and (not isinstance(client_id, str) or not client_id.strip()):
+        errors.append("'oauth_client_id' must be a non-empty string")
+    if client_id and entry.get("oauth_client_name"):
+        errors.append("'oauth_client_name' is only for registering; leave it out with 'oauth_client_id'")
+    redirect = entry.get("oauth_redirect_uri")
+    match = REDIRECT.match(redirect) if isinstance(redirect, str) else None
+    if redirect is not None and (not match or int(match.group(2)) == 0):
+        errors.append("'oauth_redirect_uri' must be http://localhost:<port>/... or http://127.0.0.1:<port>/...")
 
     inputs = entry.get("inputs", [])
     input_ids = set()
